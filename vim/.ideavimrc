@@ -1,0 +1,71 @@
+"Remaps Esc to jk key"
+imap jk <Esc>
+
+nmap ; :
+noremap ;; ;
+""" nnoremap ss i<space><Esc>
+nnoremap zzz :wq<cr>
+nnoremap zz :w<cr>
+nnoremap noh :noh<cr>
+
+""" Map leader to space ---------------------
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set clipboard=unnamedplus
+set ignorecase
+
+"set plugins"
+set NERDTree
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+set highlightedyank
+Plug 'tpope/vim-sensible'
+Plug 'michaeljsmith/vim-indent-object'
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+let g:highlightedyank_highlight_duration = "1000"
+let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set incsearch
+set nu
+set number
+set relativenumber
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set softtabstop=4
+set mouse=a
+set hlsearch
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideaput
+set ideamarks
+set idearefactormode=keep
+set ideastatusicon=gray
+
+""" Mappings --------------------------------
+map <leader><leader> <Action>(GotoAction)
+map blame <Action>(Annotate)
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>c <Action>(Stop)
+map <leader>d <Action>(Debug)
+map <leader>e <Plug>(easymotion-f)
+map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
+map <leader>o <Action>(FileStructurePopup)
+map <leader>r <Action>(RenameElement)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+
+map f <Plug>(easymotion-s)
+map ff <Action>(GotoFile)
