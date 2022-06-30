@@ -5,7 +5,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 	" Plug '907th/vim-auto-save'
 	" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug 'airblade/vim-gitgutter'
@@ -42,11 +42,14 @@ call plug#begin()
 	" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 	Plug 'sonph/onehalf', { 'rtp': 'vim' }
 	Plug 'tpope/vim-fireplace'
+	Plug 'tpope/vim-unimpaired'
 	Plug 'tpope/vim-sensible'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'vim-scripts/ReplaceWithRegister'
 	Plug 'vim-syntastic/syntastic'
+    Plug 'svermeulen/vim-cutlass'
+    Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 set encoding=UTF-8
@@ -90,6 +93,7 @@ set so=5
 set softtabstop=4
 set t_Co=256
 set tabstop=4
+set ignorecase
 syntax on
 
 colorscheme onehalfdark

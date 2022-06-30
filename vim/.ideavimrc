@@ -1,5 +1,6 @@
 "Remaps Esc to jk key"
 imap jk <Esc>
+imap kj <Esc>
 
 nmap ; :
 noremap ;; ;
@@ -8,25 +9,38 @@ nnoremap zzz :wq<cr>
 nnoremap zz :w<cr>
 nnoremap noh :noh<cr>
 
+" Tab and S-Tab to indent/unindent in visual mode.
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+nnoremap <Tab> >>
+noremap <S-Tab> <<
+
+
+set easymotion
+set surround
+set NERDTree
+set multiple-cursors
+set commentary
+set ReplaceWithRegister
+set argtextobj
+set exchange
+set textobj-entire
+set highlightedyank
+set vim-paragraph-motion
+set textobj-indent
+set matchit
+set which-key
+
+set notimeout
+set timeoutlen = 5000
+
 """ Map leader to space ---------------------
 let mapleader=" "
 
 """ Plugins  --------------------------------
 set clipboard=unnamedplus
 set ignorecase
-
-"set plugins"
-set NERDTree
-set surround
-set multiple-cursors
-set commentary
-set argtextobj
-set easymotion
-set textobj-entire
-set ReplaceWithRegister
-set highlightedyank
-Plug 'tpope/vim-sensible'
-Plug 'michaeljsmith/vim-indent-object'
+set smartcase
 
 """ Plugin settings -------------------------
 let g:argtextobj_pairs="[:],(:),<:>"
@@ -40,17 +54,10 @@ set incsearch
 set nu
 set number
 set relativenumber
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set smarttab
-set softtabstop=4
-set mouse=a
 set hlsearch
 
 """ Idea specific settings ------------------
 set ideajoin
-set ideaput
 set ideamarks
 set idearefactormode=keep
 set ideastatusicon=gray
