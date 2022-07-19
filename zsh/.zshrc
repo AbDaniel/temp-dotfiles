@@ -10,11 +10,11 @@ export LC_ALL="en_US.UTF-8"
 
 [[ -d /opt/brew/share/zsh/site-functions ]] && fpath+=(/opt/brew/share/zsh/site-functions)
 
-# Preferred editor for local and remote sessions
+ #Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='lvim'
 fi
 
 # Source Custom Rc files.
@@ -103,7 +103,9 @@ plugins=(
   git
   git-extras
   gradle-completion
+
   zsh-autosuggestions
+  fzf-tab
   zsh-history-substring-search
   zsh-vi-mode
   zoxide
@@ -113,12 +115,16 @@ plugins=(
   # Must be last
   F-Sy-H
   # zsh-syntax-highlighting
+  thefuck
+  fasd
 )
 
 export ANF_ANALYSIS_TOOLS=$HOME/Workspace/gneiss-role-analysis
 export PATH="${PATH}:${ANF_ANALYSIS_TOOLS}/scripts"
-export PATH="${PATH}:/Users/abrahamdanielimmanualwilliams/Library/Python/3.8/bin"
-
+export PATH="${PATH}:/Users/abrahamdanielimmanualwilliams/Workspace/gneiss-data/gneiss-env/bin/python"
+export PATH="${PATH}:/Users/abrahamdanielimmanualwilliams/Workspace/gneiss-data/gneiss-env/bin/doit"
+export PATH="${PATH}:/Users/abrahamdanielimmanualwilliams/.local/bin"
+export PATH=$(brew --prefix)/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -138,7 +144,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="nvim ~/.zshrc"
+alias zshconfig="${EDITOR} ~/.zshrc"
 alias update_rc="source ~/.zshrc"
 alias cls="clear"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -154,7 +160,7 @@ bindkey '^[[B' history-substring-search-down
 
 
 alias l="exa --group-directories-first --icons"
-alias ll="exa -alh --group-directories-first --icons --no-user --no-permissions" 
+alias ll="exa -lh --group-directories-first --icons --no-user --no-permissions" 
 alias tree="\
 	exa --tree --level=2 \
 	--icons --time-style=long-iso --group-directories-first \
@@ -175,5 +181,39 @@ eval "$(zoxide init zsh)"
 
 
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-eval $(thefuck --alias)
+eval $(thefuck --alias) 
+
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --follow --exclude ".git" . "$1"
+}
+
+# (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+    export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+    ssh)          fzf "$@" --preview 'dig {}' ;;
+    *)            fzf "$@" ;;
+  esac
+}
 
