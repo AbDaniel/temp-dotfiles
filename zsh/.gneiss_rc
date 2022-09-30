@@ -1,0 +1,25 @@
+#!/bin/sh
+
+export BOX=$HOME/Library/CloudStorage/Box-Box
+export PATH="${PATH}:${ANF_ANALYSIS_TOOLS}/scripts"
+
+export WORKSPACE=${HOME}/Workspace
+export ANF_ANALYSIS_TOOLS=${WORKSPACE}/gneiss-role-analysis
+export ANF_ANALYSIS_DATA=${WORKSPACE}/gneiss-data
+export ANF_TOOLBOX_PATH=${WORKSPACE}/anf-toolbox
+# export ANF_TOOLBOX_PATH=docker:your_container_name:/workspace
+export ANF_TRUTH_PATH=${WORKSPACE}/anf-toolbox-labeler-truth
+export ANF_LOCAL_ARTIFACTS=${ANF_ANALYSIS_DATA}/artifacts
+export JAR_PATH=$HOME/Workspace/anf-toolbox/anf-toolbox-util/anf-toolbox-extractor-tool/.out/libs
+export LABELER=$WORKSPACE/anf-toolbox-labeler
+export SPREAD_IMAGES=$ANF_ANALYSIS_DATA/artifacts/spread-image
+
+ground-truth-labeler() {
+  cd $LABELER
+  PORT_PUBLIC=9080 node $LABELER/backend/server.js $ANF_TRUTH_PATH $SPREAD_IMAGES/
+}
+
+baseline-labeler() {
+  cd $LABELER
+  PORT_PUBLIC=9081 node $LABELER/backend/server.js $WORKSPACE/gneiss-data/base-labeler $SPREAD_IMAGES/
+}
