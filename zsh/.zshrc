@@ -2,9 +2,9 @@ fortune | cowsay | lolcat
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 fpath=($fpath $HOME/.custom-completions)
 
@@ -53,13 +53,34 @@ plugins=(
 
 export PATH=$(brew --prefix)/bin:$PATH
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" 
+# export PATH="/Users/abrahamdanielimmanualwilliams/.local/bin:$PATH"
+
 source $ZSH/oh-my-zsh.sh
+
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(buffer-empty bracketed-paste accept-line push-line-or-edit)
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+  history-search-forward
+  history-search-backward
+  history-beginning-search-forward
+  history-beginning-search-backward
+  history-substring-search-up
+  history-substring-search-down
+  up-line-or-beginning-search
+  down-line-or-beginning-search
+  up-line-or-history
+  down-line-or-history
+  accept-line
+  copy-earlier-word
+  bracketed-paste
+)
+
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 eval "$(zoxide init zsh)"
 
@@ -82,13 +103,30 @@ alias cls="clear"
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+
 eval $(thefuck --alias)
 
 # Use ~~ as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER='~~'
+export FZF_COMPLETION_TRIGGER='``'
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
+
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS="
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+# CTRL-/ to toggle small preview window to see the full command
+# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -113,12 +151,41 @@ _fzf_comprun() {
   case "$command" in
     cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
     export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
-    ssh)          fzf "$@" --preview 'dig {}' ;;
-    *)            fzf "$@" ;;
+    ssh)          fzf "$@" --preview 'dig {}' ;; 
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 bindkey '^ ' forward-word
+
+function zvm_vi_yank() {
+	zvm_yank
+	printf %s ${CUTBUFFER} | pbcopy
+	zvm_exit_visual_mode
+}
+
+
+# start up steps.
+# cd ~/Workspace/gneiss-data
+# ./setup.sh > logs/setup-script.log 2>&1
+# z
+## end of setup
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
