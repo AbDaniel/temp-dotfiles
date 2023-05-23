@@ -48,7 +48,6 @@ plugins=(
   F-Sy-H
   # # zsh-syntax-highlighting
   thefuck
-  fasd
 )
 
 export PATH=$(brew --prefix)/bin:$PATH
@@ -158,7 +157,6 @@ _fzf_comprun() {
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-bindkey '^ ' forward-word
 
 function zvm_vi_yank() {
 	zvm_yank
@@ -166,6 +164,7 @@ function zvm_vi_yank() {
 	zvm_exit_visual_mode
 }
 
+zvm_after_init_commands+=("bindkey '^ ' forward-word")
 
 # start up steps.
 # cd ~/Workspace/gneiss-data
@@ -188,4 +187,8 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+mcd() { mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"; }
+
+source ~/alias.sh
 

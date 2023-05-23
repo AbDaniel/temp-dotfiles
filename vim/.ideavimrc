@@ -15,7 +15,7 @@ vnoremap <S-Tab> <gv
 nnoremap <Tab> >>
 noremap <S-Tab> <<
 
-
+set visualbell
 set easymotion
 set surround
 set NERDTree
