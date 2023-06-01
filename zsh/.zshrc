@@ -1,5 +1,7 @@
 # fortune | cowsay | lolcat
-fortune | pokemonsay
+fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows | shuf -n1) |  lolcat
+# fortune | pokemonsay
+#
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -7,7 +9,7 @@ fortune | pokemonsay
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-fpath=($fpath $HOME/.custom-completions)
+# fpath=($fpath $HOME/.custom-completions)
 
 # Source Custom Rc files.
 source $HOME/.gneiss_rc
@@ -49,6 +51,8 @@ plugins=(
   F-Sy-H
   # # zsh-syntax-highlighting
   thefuck
+
+  forgit
 )
 
 export PATH=$(brew --prefix)/bin:$PATH
@@ -116,7 +120,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
-  --preview 'bat -n --color=always {}'
+  --preview 'bat --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 # CTRL-/ to toggle small preview window to see the full command
@@ -188,8 +192,21 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+conda deactivate
 
 mcd() { mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"; }
 
 source ~/alias.sh
 
+# completions for brew
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
+
+# EXA color theme
+LS_COLORS="$(vivid generate snazzy)"
