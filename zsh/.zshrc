@@ -11,11 +11,9 @@ fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows | shuf -n
 
 # fpath=($fpath $HOME/.custom-completions)
 
-# Source Custom Rc files.
-source $HOME/.gneiss_rc
-
 export LC_ALL="en_US.UTF-8"
 
+# alias nvim='lvim'
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
@@ -192,11 +190,26 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+
 conda deactivate
 
 mcd() { mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"; }
 
-source ~/alias.sh
+# custom rc files
+source ~/.gneiss_rc
+source ~/dotfiles/zsh//alias.sh
+source ~/dotfiles/env.sh
+
+# FZF - confs
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath' # remember to use single quote here!!!
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+  '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+
+
 
 # completions for brew
 if type brew &>/dev/null
@@ -210,3 +223,4 @@ fi
 
 # EXA color theme
 LS_COLORS="$(vivid generate snazzy)"
+
