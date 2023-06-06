@@ -7769,7 +7769,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "open -a 'Visual Studio Code'"
+                                        "shell_command": "open -a iTerm"
                                     }
                                 ],
                                 "type": "basic"
@@ -7836,7 +7836,7 @@
                                 ],
                                 "type": "basic"
                             },
-                            {
+                           {
                                 "description": "command + f = Dash",
                                 "from": {
                                     "key_code": "f",
@@ -7879,7 +7879,7 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "f = Alfred 4",
+                                "description": "f = Alfred 5",
                                 "from": {
                                     "key_code": "f",
                                     "modifiers": {
@@ -7893,7 +7893,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "open -a 'Alfred 4'"
+                                        "shell_command": "open -a 'Alfred 5'"
                                     }
                                 ],
                                 "type": "basic"
