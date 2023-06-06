@@ -9,13 +9,15 @@ nnoremap zzz :wq<cr>
 nnoremap zz :w<cr>
 nnoremap noh :noh<cr>
 
+""" Map leader to space ---------------------
+let mapleader=" "
+
 " Tab and S-Tab to indent/unindent in visual mode.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <Tab> >>
 noremap <S-Tab> <<
 
-set visualbell
 set easymotion
 set surround
 set NERDTree
@@ -33,9 +35,6 @@ set which-key
 
 set notimeout
 set timeoutlen = 5000
-
-""" Map leader to space ---------------------
-let mapleader=" "
 
 """ Plugins  --------------------------------
 set clipboard=unnamedplus
@@ -63,18 +62,36 @@ set idearefactormode=keep
 set ideastatusicon=gray
 
 """ Mappings --------------------------------
+map <leader>f <Plug>(easymotion-s)
+map <leader>e <Plug>(easymotion-f)
+
 map <leader><leader> <Action>(GotoAction)
-map blame <Action>(Annotate)
 map <leader>b <Action>(ToggleLineBreakpoint)
 map <leader>c <Action>(Stop)
 map <leader>d <Action>(Debug)
-map <leader>e <Plug>(easymotion-f)
 map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>o <Action>(FileStructurePopup)
 map <leader>r <Action>(RenameElement)
 map <leader>z <Action>(ToggleDistractionFreeMode)
-map <C-m> <Action>(MoveEditorToOppositeTabGroup)
 
-map f <Plug>(easymotion-s)
-map ff <Action>(GotoFile)
+""" Jupyter notebook mappings
+map \ra <Action>(NotebookRunAllAction)
+
+
+
+map <C-m> <Action>(MoveEditorToOppositeTabGroup)
+map <C-o>d <Action>(NotebookDeleteCellAction)
+
+map blame <Action>(Annotate)
 map max <Action>(MaximizeEditorInSplit)
+
+" unimpaired mappings
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
