@@ -74,9 +74,11 @@ map <leader>o <Action>(FileStructurePopup)
 map <leader>r <Action>(RenameElement)
 map <leader>z <Action>(ToggleDistractionFreeMode)
 
+
 """ Jupyter notebook mappings
 map \ra <Action>(NotebookRunAllAction)
-
+map \rb <Action>(NotebookRunAllBelowAction)
+map \rr <Action>(NotebookRunAllActionAction)
 
 
 map <C-m> <Action>(MoveEditorToOppositeTabGroup)

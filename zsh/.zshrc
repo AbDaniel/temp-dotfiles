@@ -87,7 +87,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 eval "$(zoxide init zsh)"
 
 alias l="exa --group-directories-first --icons"
-alias ll="exa -lh --group-directories-first --icons --no-user --no-permissions" 
+alias ll="exa -lh --group-directories-first --icons --no-user --no-permissions -a"
 alias tree="\
 	exa --tree --level=2 \
 	--icons --time-style=long-iso --group-directories-first \
@@ -154,7 +154,7 @@ _fzf_comprun() {
     cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
     export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
     ssh)          fzf "$@" --preview 'dig {}' ;; 
-    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+    *)            fzf "$@" ;;
   esac
 }
 
@@ -200,15 +200,7 @@ mcd() { mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"; }
 source ~/.gneiss_rc
 source ~/dotfiles/zsh//alias.sh
 source ~/dotfiles/env.sh
-
-# FZF - confs
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath' # remember to use single quote here!!!
-# give a preview of commandline arguments when completing `kill`
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
-  '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
-zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
-
+source ~/dotfiles/fzf.sh
 
 
 # completions for brew
