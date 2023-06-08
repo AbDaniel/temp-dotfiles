@@ -13,10 +13,10 @@ fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows | shuf -n
 
 export LC_ALL="en_US.UTF-8"
 
-# alias nvim='lvim'
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
+  alias vim='nvim'
   export EDITOR='nvim'
 fi
 
@@ -154,7 +154,8 @@ _fzf_comprun() {
     cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
     export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
     ssh)          fzf "$@" --preview 'dig {}' ;; 
-    *)            fzf "$@" ;;
+    simcloud)     fzf "$@" ;; 
+    *)            fzf "$@" --preview 'bat --color=always {}' ;;
   esac
 }
 
@@ -198,7 +199,7 @@ mcd() { mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"; }
 
 # custom rc files
 source ~/.gneiss_rc
-source ~/dotfiles/zsh//alias.sh
+source ~/dotfiles/alias.sh
 source ~/dotfiles/env.sh
 source ~/dotfiles/fzf.sh
 
