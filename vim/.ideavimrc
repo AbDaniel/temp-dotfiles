@@ -1,3 +1,54 @@
+""" Map leader to space ---------------------
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set surround
+set NERDTree
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set highlightedyank
+set ReplaceWithRegister
+set exchange
+" Trying the new syntax
+set vim-paragraph-motion
+set matchit
+set which-key
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+let g:highlightedyank_highlight_duration = "1000"
+let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+
+""" Settings
+set notimeout
+set timeoutlen = 5000
+set clipboard=unnamedplus
+set clipboard+=ideaput
+set ignorecase
+set smartcase
+
+""" Comnon settings -------------------------
+set showmode
+set so=5
+set incsearch
+set sidescrolloff=5
+
+set nu
+set number
+" set relativenumber
+set hlsearch
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideamarks
+set idearefactormode=keep
+set ideastatusicon=gray
+
+
+""" Remaps-----------------------------------
 "Remaps Esc to jk key"
 imap jk <Esc>
 imap kj <Esc>
@@ -9,71 +60,21 @@ nnoremap zzz :wq<cr>
 nnoremap zz :w<cr>
 nnoremap noh :noh<cr>
 
-""" Map leader to space ---------------------
-let mapleader=" "
-
 " Tab and S-Tab to indent/unindent in visual mode.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <Tab> >>
 noremap <S-Tab> <<
 
-set easymotion
-set surround
-set NERDTree
-set multiple-cursors
-set commentary
-set ReplaceWithRegister
-set argtextobj
-set exchange
-set textobj-entire
-set highlightedyank
-set vim-paragraph-motion
-set textobj-indent
-set matchit
-set which-key
-
-set notimeout
-set timeoutlen = 5000
-
-""" Plugins  --------------------------------
-set clipboard=unnamedplus
-set ignorecase
-set smartcase
-
-""" Plugin settings -------------------------
-let g:argtextobj_pairs="[:],(:),<:>"
-let g:highlightedyank_highlight_duration = "1000"
-let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
-
-""" Common settings -------------------------
-set showmode
-set so=5
-set incsearch
-set nu
-set number
-set relativenumber
-set hlsearch
-
-""" Idea specific settings ------------------
-set ideajoin
-set ideamarks
-set idearefactormode=keep
-set ideastatusicon=gray
-
 """ Mappings --------------------------------
 map <leader>f <Plug>(easymotion-s)
 map <leader>e <Plug>(easymotion-f)
 
 map <leader><leader> <Action>(GotoAction)
-map <leader>b <Action>(ToggleLineBreakpoint)
-map <leader>c <Action>(Stop)
 map <leader>d <Action>(Debug)
-map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>o <Action>(FileStructurePopup)
-map <leader>r <Action>(RenameElement)
 map <leader>z <Action>(ToggleDistractionFreeMode)
-
+nmap <leader>q <Action>(CloseContent)
 
 """ Jupyter notebook mappings
 map \ra <Action>(NotebookRunAllAction)
@@ -90,10 +91,40 @@ map max <Action>(MaximizeEditorInSplit)
 " unimpaired mappings
 nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k
-
 nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
 nnoremap [m :action MethodUp<cr>
 nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+""" Remaps from https://github.com/citizenmatt/dotfiles/blob/master/ideavimrc
+nmap gb <Action>(Back)
+nmap gD <Action>(GotoTypeDeclaration)
+nmap gf <Action>(Forward)
+nmap gl <Action>(QuickJavaDoc)
+nmap gL <Action>(QuickImplementations)
+nmap gy <Action>(ShowErrorDescription)
+
+nmap <leader>b <Action>(ToggleLineBreakpoint)
+nmap <leader>c <Action>(CallHierarchy)
+nmap <leader>h <Action>(HighlightUsagesInFile)
+nmap <leader>r <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>s <Action>(ShowUsages)
+nmap <leader>t <Action>(TypeHierarchy)
+nmap <leader>u <Action>(FindUsages)
+nmap <leader>v <Action>(Vcs.QuickListPopupAction)
+nmap <leader>x <Action>(HideAllWindows)
+
+" CamelCaseMotion approximation (obsolete with proper CamelCaseMotoin plugin)
+" Missing inner word motions e.g. i<leader>w
+nmap <leader>w [w
+nmap <leader>b [b
+nmap <leader>e ]w
+nmap <leader>ge ]b
+
+""" Tmux inspired bindingd
+nmap <C-a>l <Action>(NextSplitter)
+nmap <C-a>h <Action>(PrevSplitter)
+nmap <C-a>L <Action>(MoveTabRight)
+nmap <C-a>H <Action>(MoveTabLeft)
