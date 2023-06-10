@@ -3,7 +3,7 @@
 # TODO: Move fzf config stuff out of zshrc
 
 
-export FZF_DEFAULT_OPTS="--height=40% --border --inline-info"
+export FZF_DEFAULT_OPTS="--height=60% --layout=reverse --inline-info"
 
 # Use ~~ as the trigger sequence instead of the default **
 export FZF_COMPLETION_TRIGGER='``'
