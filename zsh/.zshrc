@@ -1,5 +1,5 @@
 # fortune | cowsay | lolcat
-fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows | shuf -n1) |  lolcat
+fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows/*.cow | shuf -n1) |  lolcat
 # fortune | pokemonsay
 #
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
