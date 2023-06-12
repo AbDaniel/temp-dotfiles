@@ -12,7 +12,6 @@ set textobj-entire
 set highlightedyank
 set ReplaceWithRegister
 set exchange
-" Trying the new syntax
 set vim-paragraph-motion
 set matchit
 set which-key
