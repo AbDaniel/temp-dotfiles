@@ -22,5 +22,27 @@ tm() {
   tmux popup -E "$@"
 }
 
-
+untar() {
+  if [ -z "$1" ]; then
+    echo "Please provide the tar.gz file as an argument."
+    return 1
+  fi
+  
+  if [ ! -f "$1" ]; then
+    echo "File not found: $1"
+    return 1
+  fi
+  
+  # Extract the base name of the file (without extension)
+  filename=$(basename "$1")
+  filename="${filename%.*}"
+  
+  # Create the destination directory if it doesn't exist
+  mkdir -p "$filename"
+  
+  # Extract the files into the directory
+  tar -xzf "$1" -C "$filename"
+  
+  echo "Extraction completed successfully."
+}
 
