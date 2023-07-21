@@ -168,3 +168,5 @@ fi
 # EXA color theme
 LS_COLORS="$(vivid generate snazzy)"
 
+ export PATH="$PATH:/Applications/PyCharm.app/Contents/MacOS" 
+
