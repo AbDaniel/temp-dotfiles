@@ -89,7 +89,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 eval "$(zoxide init zsh)"
 
 alias l="exa --group-directories-first --icons"
-alias ll="exa -lh --group-directories-first --icons --no-user --no-permissions -a"
+alias ll="exa -lh --group-directories-first --icons --no-user --no-permissions"
 alias tree="\
 	exa --tree --level=2 \
 	--icons --time-style=long-iso --group-directories-first \
