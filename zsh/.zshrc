@@ -51,6 +51,8 @@ plugins=(
   thefuck
 
   forgit
+  conda-zsh-completion
+  autoenv
 )
 
 export PATH=$(brew --prefix)/bin:$PATH
