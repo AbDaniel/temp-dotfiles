@@ -1,7 +1,29 @@
 
+alias zshconfig="${EDITOR} ~/.zshrc"
+alias cls="clear"
+alias aliasconfig="$EDITOR ~/dotfiles/alias.sh"
+
 alias cwd='echo -n "$(pwd)" | pbcopy'
 alias sc='simcloud'
 alias sls="simcloud -q job ls -f '{{.ID}} {{.Status}} {{(index .Tasks 0).ExitCode}} {{.JobSpec.Tags}}'"   
+
+
+scb() {
+  result=$(simcloud bundle list -f json | jq -r '.[] | [.id, .tag, .ctime] | @tsv' | column -t | tac | fzf)
+  id=$(echo $result | cut -d ' ' -f1)
+  echo $id | pbcopy
+  echo "copied: $id"
+}
+
+
+fcp() {
+  fd . | fzf --preview 'bat --color "always" {}' \
+  | awk -v pwd="$PWD" '{if ($0 !~ /^\//) print pwd"/"$0; else print $0}' \
+  | tr -d '\n' \
+  | tee >(pbcopy) \
+  | awk '{print "copied: "$0}'
+}
+
 
 bundleselect() {
   simcloud bundle ls | fzf | awk '{print $1}' | tr -d '\n' | pbcopy
