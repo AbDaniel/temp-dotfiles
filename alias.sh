@@ -6,12 +6,13 @@ alias aliasconfig="$EDITOR ~/dotfiles/alias.sh"
 alias cwd='echo -n "$(pwd)" | pbcopy'
 alias sc='simcloud'
 alias sls="simcloud -q job ls -f '{{.ID}} {{.Status}} {{(index .Tasks 0).ExitCode}} {{.JobSpec.Tags}}'"   
+alias time="hyperfine"
 
 
 scb() {
   result=$(simcloud bundle list -f json | jq -r '.[] | [.id, .tag, .ctime] | @tsv' | column -t | tac | fzf)
   id=$(echo $result | cut -d ' ' -f1)
-  echo $id | pbcopy
+  echo $id | tr -d '\n' | pbcopy
   echo "copied: $id"
 }
 
@@ -32,13 +33,65 @@ bundleselect() {
 # alias job_select="simcloud job ls | fzf | awk '{print $1}' | pbcopy "
 # alias volume_select="simcloud volume ls | fzf | awk '{print $1}' | pbcopy "
 
+# fsc() {
+#   local command="$1"
+#   local subcommand="$2"
+#   shift 2
+#
+#   simcloud $command ls --sort created "$@" | fzf -m | awk '{print $1}'  | xargs -I {} simcloud job $subcommand {}
+# }
+
+# set -x
+# 
 fsc() {
   local command="$1"
   local subcommand="$2"
+  local options=""
+  local pre_process=""
   shift 2
 
-  simcloud $command ls "$@" | fzf | awk '{print $1}'  | xargs -I {} simcloud job $subcommand {}
+  case "${command}" in
+    "job")
+        options="-f json"
+        pre_process="mlr --j2p flatten \
+              then cut -o -f id,status,resources.cpu,resources.gpu,times.created,tags.1,tags.2 \
+              then rename resources.cpu,cpu,resources.gpu,gpu,times.created,created \
+              then put '\
+                \$created = gmt2sec(\$created);\
+                now = systime();\
+                diff = now - (\$created);\
+                days = diff // 86400;\
+                if (days == 0) {\
+                  \$created = \"today\";\
+                } elif (days == 1) {\
+                  \$created = \"1 day ago\";\
+                } else {\
+                  \$created = days . \" days ago\";\
+                }'"
+        cmd="mlr --j2p flatten \
+          then cut -o -f id,status,resources.cpu,resources.gpu,times.created,tags.1,tags.2 \
+          then rename resources.cpu,cpu,resources.gpu,gpu,times.created,created \
+          put '\$created_s = strptime(\$created, \"%Y-%m-%d\")'"
+        ;;
+    "bundle")
+        options="-f csv"
+        pre_process="mlr --c2p sort -nr ctime then cut -o -f id,tag,ctime,size"
+        ;;
+    # add more conditions here
+  esac
+  
+  local selected_item=$(
+    if [ -z "$pre_process" ]; then
+      simcloud $command ls $options "$@" | fzf | awk '{print $1}'
+    else
+      sh -c "simcloud $command ls $options $@" | sh -c "$pre_process" | fzf | awk '{print $1}'
+    fi)
+                        
+  final_command="simcloud $command $subcommand $selected_item"
+  # Put the final command into the Zsh command line
+  print -z "$final_command"       
 }
+
 
 tm() {
   tmux popup -E "$@"

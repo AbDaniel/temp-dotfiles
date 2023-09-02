@@ -52,7 +52,7 @@ plugins=(
 
   forgit
   conda-zsh-completion
-  autoenv
+  # autoenv
 )
 
 export PATH=$(brew --prefix)/bin:$PATH

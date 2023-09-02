@@ -70,8 +70,9 @@ zstyle ':fzf-tab:complete:simcloud:*' disabled-on any
 _fzf_complete_simcloud() {
   local command=$(echo ${1} | awk {'print $2'})
   # echo $command >> ~/out.log
- 
-  FZF_COMPLETION_TRIGGER='' _fzf_complete -- "$@" < <(simcloud $command list --owner=iss:apps:news:gneiss --owner=abraham_williams --owner=iss:abraham_williams)
+
+
+FZF_COMPLETION_TRIGGER='' _fzf_complete -- "$@" < <(simcloud $command list --owner=iss:apps:news:gneiss --owner=abraham_williams --owner=iss:abraham_williams --owner=p6:iss:abraham_williams)
 }
 
 
