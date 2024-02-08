@@ -6,7 +6,7 @@ alias aliasconfig="$EDITOR ~/dotfiles/alias.sh"
 alias cwd='echo -n "$(pwd)" | pbcopy'
 alias sc='simcloud'
 alias sls="simcloud -q job ls -f '{{.ID}} {{.Status}} {{(index .Tasks 0).ExitCode}} {{.JobSpec.Tags}}'"   
-alias time="hyperfine"
+alias timeit="hyperfine"
 
 
 scb() {
@@ -43,6 +43,20 @@ bundleselect() {
 
 # set -x
 # 
+
+
+unzipd() {
+    # Get the zip file name without extension
+    local folder_name="${1%.zip}"
+
+    # Create the folder if it doesn't exist
+    mkdir -p "$folder_name"
+
+    # Unzip the file into the folder
+    unzip "$1" -d "$folder_name"
+}
+
+
 fsc() {
   local command="$1"
   local subcommand="$2"
@@ -121,3 +135,6 @@ untar() {
   echo "Extraction completed successfully."
 }
 
+
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
