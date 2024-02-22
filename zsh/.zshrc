@@ -182,3 +182,5 @@ alias python3=/opt/homebrew/bin/python3
 # alias python=/opt/homebrew/bin/python3
 
 export KIND_EXPERIMENTAL_PROVIDER=docker
+export K9S_CONFIG_DIR="${HOME}/.config/k9s"
+
