@@ -34,9 +34,10 @@ imap kj <Esc>
 
 nmap ; :
 noremap ;; ;
+
 """ nnoremap ss i<space><Esc>
-nnoremap zzz :wq<cr>
-nnoremap zz :w<cr>
+"""nnoremap zzz :wq<cr>
+"""nnoremap zz :w<cr>
 nnoremap noh :noh<cr>
 
 " Tab and S-Tab to indent/unindent in visual mode.
@@ -45,7 +46,7 @@ nnoremap noh :noh<cr>
 """nnoremap <Tab> >>
 """noremap <S-Tab> <<
 
-"""map <leader><leader> <Action>(GotoAction)
+map <leader><leader> <Action>(GotoAction)
 """map <leader>d <Action>(Debug)
 """map <leader>o <Action>(FileStructurePopup)
 """map <leader>z <Action>(ToggleDistractionFreeMode)
@@ -61,7 +62,7 @@ nnoremap noh :noh<cr>
 """map <C-o>d <Action>(NotebookDeleteCellAction)
 """
 """map blame <Action>(Annotate)
-"""map max <Action>(MaximizeEditorInSplit)
+map max <Action>(MaximizeEditorInSplit)
 """
 """" unimpaired mappings
 """nnoremap [<space> O<esc>j
@@ -326,7 +327,8 @@ inoremap <a-j> <ESC>:m .+1<cr>==gi
 inoremap <a-k> <ESC>:m .-2<cr>==gi
 
 " VISUAL MODE
-vnoremap jk <Esc>
+" vnoremap jk <Esc>
+
 "--  Easy visual indentation
 vnoremap < <gv
 vnoremap > >gv
@@ -347,10 +349,6 @@ set sneak
 set nerdtree
 set argtextobj
 set vim-multiple-cursors
-
-" Easymotion settings
-set easymotion
-set notimeout
 
 " Which-key settings
 set which-key
