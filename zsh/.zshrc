@@ -1,6 +1,5 @@
 # fortune | cowsay | lolcat
 fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows/*.cow | shuf -n1) |  lolcat
-# fortune | pokemonsay
 #
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -53,6 +52,10 @@ plugins=(
   forgit
   conda-zsh-completion
   # autoenv
+
+  kubectl
+  poetry
+  docker
 )
 
 export PATH=$(brew --prefix)/bin:$PATH
@@ -111,8 +114,7 @@ zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 eval $(thefuck --alias)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-
+unalias imgcat
 function zvm_vi_yank() {
 	zvm_yank
 	printf %s ${CUTBUFFER} | pbcopy
@@ -153,6 +155,7 @@ source ~/.gneiss_rc
 source ~/dotfiles/alias.sh
 source ~/dotfiles/env.sh
 source ~/dotfiles/fzf.sh
+source ~/.frontiere_rc
 
 
 # completions for brew
@@ -168,5 +171,14 @@ fi
 # EXA color theme
 LS_COLORS="$(vivid generate snazzy)"
 
- export PATH="$PATH:/Applications/PyCharm.app/Contents/MacOS" 
+export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
 
+
+setopt append_history
+setopt inc_append_history
+
+alias python3=/opt/homebrew/bin/python3
+# OPTIONAL: ensure "python" command uses homebrew's version of python3
+# alias python=/opt/homebrew/bin/python3
+
+export KIND_EXPERIMENTAL_PROVIDER=docker
