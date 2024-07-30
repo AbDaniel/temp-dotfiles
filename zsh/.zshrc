@@ -34,6 +34,7 @@ plugins=(
   compleat
   git
   git-extras
+  git-auto-fetch
   gradle-completion
 
   zsh-autosuggestions
@@ -59,6 +60,8 @@ plugins=(
 )
 
 export PATH=$(brew --prefix)/bin:$PATH
+export PATH=$(brew --prefix)/sbin:$PATH
+export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" 
 # export PATH="/Users/abrahamdanielimmanualwilliams/.local/bin:$PATH"
 
@@ -171,16 +174,33 @@ fi
 # EXA color theme
 LS_COLORS="$(vivid generate snazzy)"
 
-export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
 
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
+# export PATH="$PATH:${HOME}/go/bin"
 
 setopt append_history
 setopt inc_append_history
 
-alias python3=/opt/homebrew/bin/python3
+# alias python3=/opt/homebrew/bin/python3
 # OPTIONAL: ensure "python" command uses homebrew's version of python3
 # alias python=/opt/homebrew/bin/python3
 
 export KIND_EXPERIMENTAL_PROVIDER=docker
 export K9S_CONFIG_DIR="${HOME}/.config/k9s"
+
+
+# homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+
+export PIPX_HOME=$HOME/.local/pipx
+
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
 
