@@ -2,11 +2,28 @@
 alias zshconfig="${EDITOR} ~/.zshrc"
 alias cls="clear"
 alias aliasconfig="$EDITOR ~/dotfiles/alias.sh"
+alias ls="eza"
 
 alias cwd='echo -n "$(pwd)" | pbcopy'
 alias sc='simcloud'
 alias sls="simcloud -q job ls -f '{{.ID}} {{.Status}} {{(index .Tasks 0).ExitCode}} {{.JobSpec.Tags}}'"   
 alias timeit="hyperfine"
+
+alias l="eza --group-directories-first --icons"
+alias ll="eza -lh --group-directories-first --icons --no-user --no-permissions"
+alias tree="\
+	eza --tree --level=2 \
+	--icons --time-style=long-iso --group-directories-first \
+"
+
+if command -v bat > /dev/null; then
+	alias cat="bat"
+elif command -v batcat ? /dev/null; then
+	alias cat="batcat"
+fi
+
+alias zshconfig="${EDITOR} ~/.zshrc"
+alias cls="clear"
 
 
 scb() {
