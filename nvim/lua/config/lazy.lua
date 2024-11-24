@@ -44,8 +44,10 @@ require("lazy").setup({
   },
   install = {
     colorscheme = {
+      "onedark",
       "tokyonight",
-      -- "catppuccin",
+      "oceanic-next",
+      "catppuccin",
     },
   },
   checker = {
