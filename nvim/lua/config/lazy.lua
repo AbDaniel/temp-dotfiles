@@ -44,8 +44,7 @@ require("lazy").setup({
   },
   install = {
     colorscheme = {
-      -- "catppuccin",
-      "onedark",
+      "catppuccin",
     },
   },
   checker = {
