@@ -183,3 +183,4 @@ source <(isc --zsh-completions 2>/dev/null)
 source <(acc --zsh-completions 2>/dev/null)
 export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
 export DOCKER_DEFAULT_PLATFORM=linux/arm64
+export ERG_PATH=/Users/abrahamdanielimmanualwilliams/.cargo/bin/erg
