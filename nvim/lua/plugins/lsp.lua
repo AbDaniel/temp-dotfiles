@@ -115,7 +115,7 @@ return {
     },
   },
 
-  {
-    "Pocco81/auto-save.nvim",
-  },
+  -- {
+  --   "Pocco81/auto-save.nvim",
+  -- },
 }
