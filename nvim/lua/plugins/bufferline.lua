@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 return {
   "akinsho/bufferline.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
