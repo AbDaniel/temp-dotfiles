@@ -30,7 +30,7 @@ set ideastatusicon=gray
 """ Remaps-----------------------------------
 "Remaps Esc to jk key"
 imap jk <Esc>
-imap kj <Esc>
+""" imap kj <Esc>
 
 nmap ; :
 noremap ;; ;
@@ -139,12 +139,20 @@ sethandler <C-l> n-v-i:vim
 "" Key mappings ====================================================
 " NORMAL MODE
 " Edit
-" nnoremap d "_d
+""nnoremap d "_d
 " nnoremap D "_D
 " nnoremap dd "_dd
-nnoremap c "_c
-nnoremap C "_C
-nnoremap cc "_cc
+" nnoremap c "_c
+" nnoremap C "_C
+" nnoremap cc "_cc
+
+" vnoremap d "_d
+" vnoremap D "_D
+" vnoremap dd "_dd
+" vnoremap c "_c
+" vnoremap C "_C
+" vnoremap cc "_cc
+
 nnoremap Y y$
 
 "-- Replace word with paste
@@ -194,7 +202,6 @@ nnoremap [] gg :action MethodDown<cr>f{
 
 nnoremap <C-o> :action Back<cr>
 nnoremap <C-i> :action Forward<cr>
-map s <Plug>(easymotion-s)
 
 " Windows and buffers (leader w)
 """nnoremap <c-h> <c-w>h
@@ -326,6 +333,8 @@ inoremap <a-e> <Esc>ea
 inoremap <a-j> <ESC>:m .+1<cr>==gi
 inoremap <a-k> <ESC>:m .-2<cr>==gi
 
+
+
 " VISUAL MODE
 " vnoremap jk <Esc>
 
@@ -358,7 +367,6 @@ let g:WhichKey_PrefixColor = "#f335b2"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
 
 let g:WhichKeyDesc_leader = "<leader> Leader key"
-let g:WhichKeyDesc_easymotion = "s Jump with Easymotion"
 let g:WhichKeyDesc_leader_deleteargument = "<leader>x Delete function argument"
 let g:WhichKeyDesc_leader_changeargument = "<leader>a Delete function argument"
 let g:WhichKeyDesc_leader_replacewithpaste = "<leader>p Replace with paste"
