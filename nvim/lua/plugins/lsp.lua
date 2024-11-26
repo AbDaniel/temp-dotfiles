@@ -34,6 +34,7 @@ return {
   -- { "numirias/semshi" },
   {
     "numirias/semshi",
+    enabled = false,
     build = ":UpdateRemotePlugins",
     ft = "python", -- Load only for Python filetypes
   },
@@ -94,6 +95,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
+        "python",
         "bash",
         "html",
         -- "javascript",
@@ -101,7 +103,6 @@ return {
         "lua",
         "markdown",
         "markdown_inline",
-        "python",
         "java",
         "ruby",
         "go",
