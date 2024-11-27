@@ -98,6 +98,7 @@ return {
         "python",
         "bash",
         "html",
+        "lua",
         -- "javascript",
         "json",
         "lua",
