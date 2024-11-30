@@ -9,6 +9,8 @@ return {
   config = function()
     require("nvim-tree").setup({
       view = {},
+      update_root = false,
+      focus = true,
     })
   end,
 }

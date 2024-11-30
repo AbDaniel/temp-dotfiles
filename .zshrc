@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 # fortune | cowsay | lolcat
 fortune | cowsay -f $(ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows/*.cow | shuf -n1) |  lolcat
 #
@@ -34,7 +35,7 @@ plugins=(
   git
   git-extras
   git-auto-fetch
-  gradle-completion
+  # gradle-completion
 
   zsh-autosuggestions
   fzf-tab
@@ -49,29 +50,25 @@ plugins=(
   # # zsh-syntax-highlighting
   thefuck
 
-  forgit
-  conda-zsh-completion
-  # autoenv
-
   kubectl
   poetry
   docker
 )
 
-export PATH=$(brew --prefix)/bin:$PATH
-export PATH=$(brew --prefix)/sbin:$PATH
-export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" 
-# export PATH="/Users/abrahamdanielimmanualwilliams/.local/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
-setopt share_history
+setopt appendhistory
+setopt sharehistory
+
 setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
 setopt hist_ignore_dups
+setopt hist_save_no_dups
 setopt hist_verify
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -94,14 +91,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 )
 
 ZSH_AUTOSUGGEST_STRATEGY=(history)
-
-eval "$(zoxide init zsh)"
-
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-
-eval $(thefuck --alias)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 unalias imgcat
@@ -119,7 +110,6 @@ zvm_after_init_commands+=("bindkey '^ ' forward-word")
 # z
 ## end of setup
 
-mcd() { mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"; }
 
 # custom rc files
 source ~/.gneiss_rc
@@ -136,8 +126,7 @@ if type brew &>/dev/null
 then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
-  autoload -Uz compinit
-  compinit
+  autoload -Uz compinit && compinit
 fi
 
 
@@ -148,27 +137,6 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
 # export PATH="$PATH:${HOME}/go/bin"
 
-setopt append_history
-setopt inc_append_history
-
-# alias python3=/opt/homebrew/bin/python3
-# OPTIONAL: ensure "python" command uses homebrew's version of python3
-# alias python=/opt/homebrew/bin/python3
-
-export KIND_EXPERIMENTAL_PROVIDER=docker
-export K9S_CONFIG_DIR="${HOME}/.config/k9s"
-
-
-# homebrew
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-export PIPX_HOME=$HOME/.local/pipx
-
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
@@ -178,9 +146,29 @@ export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
 
 . "$HOME/.cargo/env"
 [[ :$PATH: == *:$HOME/bin:* ]] || PATH=$HOME/bin:$PATH
-source <(capri --zsh-completions 2>/dev/null)
-source <(isc --zsh-completions 2>/dev/null)
-source <(acc --zsh-completions 2>/dev/null)
+# source <(capri --zsh-completions 2>/dev/null)
+# source <(isc --zsh-completions 2>/dev/null)
+# source <(acc --zsh-completions 2>/dev/null)
+
+# Brew
+export PATH=$(brew --prefix)/bin:$PATH
+export PATH=$(brew --prefix)/sbin:$PATH
+# export PATH="/Users/abrahamdanielimmanualwilliams/.local/bin:$PATH"
+export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" 
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+export PIPX_HOME=$HOME/.local/pipx
+
+export KIND_EXPERIMENTAL_PROVIDER=docker
+export K9S_CONFIG_DIR="${HOME}/.config/k9s"
 export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
 export DOCKER_DEFAULT_PLATFORM=linux/arm64
 export ERG_PATH=/Users/abrahamdanielimmanualwilliams/.cargo/bin/erg
+
+eval "$(zoxide init zsh)"
+eval $(thefuck --alias)
+eval "$(pyenv init -)"
+# zprof
