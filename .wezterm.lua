@@ -4,8 +4,10 @@ local wezterm = require("wezterm")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
-config.color_scheme = "One Dark (Gogh)"
-config.color_scheme = "Oceanic-Next"
+-- config.color_scheme = "tokyonight"
+config.color_scheme = "Tokyo Night"
+-- config.color_scheme = "One Dark (Gogh)"
+-- config.color_scheme = "Oceanic-Next"
 -- This is where you actually apply your config choices
 
 -- my coolnight colorscheme

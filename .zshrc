@@ -130,8 +130,6 @@ then
 fi
 
 
-# EXA color theme
-LS_COLORS="$(vivid generate snazzy)"
 
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"

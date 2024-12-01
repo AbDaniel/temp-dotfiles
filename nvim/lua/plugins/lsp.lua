@@ -56,36 +56,36 @@ return {
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         ruff = {},
-        ruff_lsp = {},
+        -- ruff_lsp = {},
         pyright = {},
         -- pylyzer = {},
       },
     },
-    -- init = function()
-    --   -- this snippet enables auto-completion
-    --   local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
-    --   lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
-    --
-    --   -- setup pyright with completion capabilities
-    --   require("lspconfig").pyright.setup({
-    --     capabilities = lspCapabilities,
-    --   })
-    --
-    --   -- setup taplo with completion capabilities
-    --   require("lspconfig").taplo.setup({
-    --     capabilities = lspCapabilities,
-    --   })
-    --
-    --   -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
-    --   -- were a LSP. In practice, ruff only provides linter-like diagnostics
-    --   -- and some code actions, and is not a full LSP yet.
-    --   require("lspconfig").ruff.setup({
-    --     -- disable ruff as hover provider to avoid conflicts with pyright
-    --     on_attach = function(client)
-    --       client.server_capabilities.hoverProvider = false
-    --     end,
-    --   })
-    -- end,
+    init = function()
+      -- this snippet enables auto-completion
+      local lspCapabilities = vim.lsp.protocol.make_client_capabilities()
+      lspCapabilities.textDocument.completion.completionItem.snippetSupport = true
+
+      -- setup pyright with completion capabilities
+      require("lspconfig").pyright.setup({
+        capabilities = lspCapabilities,
+      })
+
+      -- setup taplo with completion capabilities
+      require("lspconfig").taplo.setup({
+        capabilities = lspCapabilities,
+      })
+
+      -- ruff uses an LSP proxy, therefore it needs to be enabled as if it
+      -- were a LSP. In practice, ruff only provides linter-like diagnostics
+      -- and some code actions, and is not a full LSP yet.
+      require("lspconfig").ruff.setup({
+        -- disable ruff as hover provider to avoid conflicts with pyright
+        on_attach = function(client)
+          client.server_capabilities.hoverProvider = false
+        end,
+      })
+    end,
   },
 
   -- { import = "lazyvim.plugins.extras.lang.python" },
@@ -94,6 +94,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
+      indent = { enable = true },
       ensure_installed = {
         "python",
         "bash",
