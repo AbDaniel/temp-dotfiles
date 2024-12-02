@@ -8,14 +8,18 @@ return {
   },
 
   {
-    "navarasu/onedark.nvim",
-    lazy = true,
-    config = function()
-      require("onedark").setup({
-        -- style = "cool",
-      })
-    end,
+    "olimorris/onedarkpro.nvim",
+    lazy = false,
   },
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   lazy = true,
+  --   config = function()
+  --     require("onedark").setup({
+  --       -- style = "cool",
+  --     })
+  --   end,
+  -- },
 
   {
     "mhartington/oceanic-next",

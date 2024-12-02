@@ -209,7 +209,11 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 [workspace-to-monitor-force-assignment]
-1 = ['main']                    # Monitor sequence number from left to right. 1-based indexing
-2 = 'main'                      # Main monitor
+1 = [
+  'main',
+  'dell',
+  'smart',
+] # Monitor sequence number from left to right. 1-based indexing
+2 = ['^LG.*$', 'built-in'] # Main monitor
 3 = 'built-in'
 5 = '^built-in retina display$' # Case insensitive regex match
