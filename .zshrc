@@ -55,7 +55,7 @@ plugins=(
   docker
 )
 
-
+export LS_COLORS="$(vivid generate snazzy)"
 source $ZSH/oh-my-zsh.sh
 
 HISTFILE=~/.zsh_history

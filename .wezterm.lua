@@ -6,6 +6,7 @@ local config = wezterm.config_builder()
 
 -- config.color_scheme = "tokyonight"
 config.color_scheme = "Tokyo Night"
+-- config.color_scheme = "Catppuccin Mocha"
 -- config.color_scheme = "One Dark (Gogh)"
 -- config.color_scheme = "Oceanic-Next"
 -- This is where you actually apply your config choices
@@ -27,7 +28,6 @@ config.font = wezterm.font("MesloLGS Nerd Font Mono")
 config.font_size = 15
 
 config.enable_tab_bar = false
-
 config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 0.95
 -- config.macos_window_background_blur = 10
