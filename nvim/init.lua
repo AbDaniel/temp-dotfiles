@@ -5,7 +5,8 @@ vim.opt.termguicolors = true
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme kanagawa")
+-- vim.cmd("colorscheme catppuccin")
 -- vim.cmd("colorscheme onedark")
 -- -- put this after lazy setup
 -- dofile(vim.g.base46_cache .. "defaults")

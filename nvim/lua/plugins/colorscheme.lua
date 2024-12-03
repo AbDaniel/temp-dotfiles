@@ -9,7 +9,7 @@ return {
 
   {
     "olimorris/onedarkpro.nvim",
-    lazy = false,
+    lazy = true,
   },
   -- {
   --   "navarasu/onedark.nvim",
@@ -28,6 +28,10 @@ return {
 
   {
     "oxfist/night-owl.nvim",
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = false,
   },
   -- catppuccin
   {
