@@ -4,11 +4,12 @@ local wezterm = require("wezterm")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- config.color_scheme = "tokyonight"
-config.color_scheme = "Tokyo Night"
 -- config.color_scheme = "Catppuccin Mocha"
--- config.color_scheme = "One Dark (Gogh)"
 -- config.color_scheme = "Oceanic-Next"
+-- config.color_scheme = "One Dark (Gogh)"
+config.color_scheme = "Tokyo Night"
+-- config.color_scheme = "tokyonight"
+-- config.color_scheme = "Kanagawa (Gogh)"
 -- This is where you actually apply your config choices
 
 -- my coolnight colorscheme
@@ -28,6 +29,7 @@ config.font = wezterm.font({
 	family = "MesloLGS Nerd Font Mono",
 	-- weight = "Bold",
 })
+
 config.font_size = 15
 
 config.enable_tab_bar = false
