@@ -1,47 +1,4 @@
 return {
-  -- add pyright to lspconfig
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   -- @class PluginLspOpts
-  --   opts = {
-  --     -- @type lspconfig.options
-  --     servers = {
-  --       -- pyright will be automatically installed with mason and loaded with lspconfig
-  --       ruff = {},
-  --       pyright = {},
-  --       -- pylyzer = {},
-  --     },
-  --   },
-  -- },
-
-  -- {
-  --   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  --   dependencies = {
-  --     { "williamboman/mason.nvim", opts = true },
-  --     { "williamboman/mason-lspconfig.nvim", opts = true },
-  --   },
-  --   opts = {
-  --     ensure_installed = {
-  --       "pyright", -- LSP for python
-  --       "ruff", -- linter & formatter (includes flake8, pep8, black, isort, etc.)
-  --       -- "debugpy", -- debugger
-  --       -- "taplo", -- LSP for toml (e.g., for pyproject.toml files)
-  --     },
-  --   },
-  -- },
-  --
-
-  -- { "numirias/semshi" },
-  {
-    "numirias/semshi",
-    enabled = false,
-    build = ":UpdateRemotePlugins",
-    ft = "python", -- Load only for Python filetypes
-  },
-  -- Setup the LSPs
-  -- `gd` and `gr` for goto definition / references
-  -- `<C-f>` for formatting
-  -- `<leader>c` for code actions (organize imports, etc.)
   {
     "neovim/nvim-lspconfig",
     keys = {
@@ -96,29 +53,26 @@ return {
     opts = {
       indent = { enable = true },
       ensure_installed = {
-        "python",
         "bash",
+        "go",
         "html",
-        "lua",
-        -- "javascript",
+        "java",
         "json",
+        "lua",
         "lua",
         "markdown",
         "markdown_inline",
-        "java",
-        "ruby",
-        "go",
+        "python",
         "query",
         "regex",
-        -- "tsx",
-        -- "typescript",
+        "ruby",
+        -- "taplo",
         "vim",
         "yaml",
+        -- "javascript",
+        -- "tsx",
+        -- "typescript",
       },
     },
   },
-
-  -- {
-  --   "Pocco81/auto-save.nvim",
-  -- },
 }
